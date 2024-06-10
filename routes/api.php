@@ -42,6 +42,7 @@ Route::group([
 
 Route::post('addAnimal', [AnimalController::class, 'addAnimal']);
 Route::post('animalSante', [AnimalController::class, 'animalSante']);
+Route::patch('/animalSante/{id}', [AnimalController::class, 'updateSante']);
 Route::get('animals', [AnimalController::class, 'index']);
 Route::get('sante', [AnimalController::class, 'indexSante']);
 

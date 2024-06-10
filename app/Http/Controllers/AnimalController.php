@@ -79,6 +79,22 @@ class AnimalController extends Controller
         return response()->json(['message' => 'Informations de l\'animal enregistrées avec succès', 'animal_info' => $animalInfo], 201);
     }
 
+    public function updateSante(Request $request, $id)
+    {
+        // Récupération de l'enregistrement existant par son ID
+        $sante = Sante::findOrFail($id);
+
+        // Mise à jour des données de l'enregistrement
+        $sante->update($request->all());
+
+        // Retourner une réponse appropriée incluant l'ID et les nouvelles données de l'enregistrement
+        return response()->json([
+            'message' => 'Enregistrement de santé mis à jour avec succès',
+            'sante_id' => $sante->id_sante,
+            'sante' => $sante
+        ], 200);
+    }
+
 
     public function showAnimal($id)
     {
