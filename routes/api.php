@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AnimalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +25,23 @@ Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
 
-], function ($router) {
+    //ito params
+    ], function ($router) {
 
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
+    // anatiny ato resaka Login, lasa otranzao le API 'Localhost:8000/api/auth/qlqChose' rah ato
 
-}); 
+});
+
+Route::post('addAnimal', [AnimalController::class, 'addAnimal']);
+Route::post('animalSante', [AnimalController::class, 'animalSante']);
+Route::get('animals', [AnimalController::class, 'index']);
+Route::get('sante', [AnimalController::class, 'indexSante']);
+
+
+//Syntax Laravel 8 io, efa niova 
+Route::put('test2', [AnimalController::class, 'index']);
+Route::post('test', [AnimalController::class, 'storee']);
