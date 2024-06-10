@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('sante', function (Blueprint $table) {
             $table->id('id_sante');
             $table->unsignedBigInteger('id_animal')->nullable();
-            $table->string('vaccin', 10)->nullable();
+            $table->string('vaccin', 100)->nullable();
             $table->boolean('vermifuge')->nullable();
             $table->date('date_vacc')->nullable();
             $table->date('date_verm')->nullable();
-            $table->string('maladie', 10)->nullable();
-            $table->string('blessure', 10)->nullable();
+            $table->string('maladie', 100)->nullable();
+            $table->string('blessure', 100)->nullable();
             $table->date('date_trait')->nullable();
             $table->integer('etat')->nullable();
             $table->boolean('gestation')->nullable();

@@ -10,6 +10,8 @@ class Sante extends Model
     use HasFactory;
     protected $table = 'sante';
 
+    protected $primaryKey = 'id_sante'; 
+
     protected $fillable = [
         'id_animal', 'vaccin', 'vermifuge', 'date_vacc', 'date_verm', 'maladie', 'blessure', 'date_trait', 'etat', 'gestation'
     ];
