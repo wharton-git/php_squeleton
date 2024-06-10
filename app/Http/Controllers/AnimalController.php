@@ -80,15 +80,18 @@ class AnimalController extends Controller
     }
 
 
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function showAnimal($id)
     {
-        //
+        // Récupération de l'animal existant par son ID
+        $animal = Animal::findOrFail($id);
+
+        // Retourner une réponse appropriée incluant les données de l'animal
+        return response()->json([
+            'animal_id' => $animal->id_animal,
+            'animal' => $animal
+        ], 200);
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -140,15 +143,14 @@ class AnimalController extends Controller
     {
         // Récupération de l'animal existant par son ID
         $animal = Animal::findOrFail($id);
-    
+
         // Suppression de l'animal
         $animal->delete();
-    
+
         // Retourner une réponse appropriée
         return response()->json([
             'message' => 'Animal supprimé avec succès',
             'animal_id' => $animal->id_animal
         ], 200);
     }
-    
 }

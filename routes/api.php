@@ -41,6 +41,7 @@ Route::get('animals', [AnimalController::class, 'index']);
 Route::get('sante', [AnimalController::class, 'indexSante']);
 
 
-Route::put('/editAnimal/{id}', [AnimalController::class, 'updateAnimal']);
+Route::patch('/editAnimal/{id}', [AnimalController::class, 'updateAnimal']);
 Route::delete('/deleteAnimal/{id}', [AnimalController::class, 'destroy']);
+Route::put('/showAnimal/{id}', [AnimalController::class, 'showAnimal']);
 Route::post('test', [AnimalController::class, 'storee']);
