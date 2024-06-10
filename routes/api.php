@@ -32,7 +32,6 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('me', [AuthController::class, 'me']);
-    // anatiny ato resaka Login, lasa otranzao le API 'Localhost:8000/api/auth/qlqChose' rah ato
 
 });
 
@@ -42,6 +41,6 @@ Route::get('animals', [AnimalController::class, 'index']);
 Route::get('sante', [AnimalController::class, 'indexSante']);
 
 
-//Syntax Laravel 8 io, efa niova 
-Route::put('test2', [AnimalController::class, 'index']);
+Route::put('/editAnimal/{id}', [AnimalController::class, 'updateAnimal']);
+Route::delete('/deleteAnimal/{id}', [AnimalController::class, 'destroy']);
 Route::post('test', [AnimalController::class, 'storee']);
