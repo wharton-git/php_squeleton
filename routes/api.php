@@ -40,14 +40,10 @@ Route::group([
 
 });
 
-Route::post('addAnimal', [AnimalController::class, 'addAnimal']);
-Route::post('animalSante', [AnimalController::class, 'animalSante']);
-Route::patch('/animalSante/{id}', [AnimalController::class, 'updateSante']);
+Route::post('addAnimal', [AnimalController::class, 'store']);
 Route::get('animals', [AnimalController::class, 'index']);
-Route::get('sante', [AnimalController::class, 'indexSante']);
 
 
 Route::patch('/editAnimal/{id}', [AnimalController::class, 'updateAnimal']);
 Route::delete('/deleteAnimal/{id}', [AnimalController::class, 'destroy']);
 Route::put('/showAnimal/{id}', [AnimalController::class, 'showAnimal']);
-Route::post('test', [AnimalController::class, 'storee']);

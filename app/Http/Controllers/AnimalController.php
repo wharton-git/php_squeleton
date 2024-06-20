@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Animal;
-use App\Models\Sante;
 
 class AnimalController extends Controller
 {
@@ -13,143 +12,84 @@ class AnimalController extends Controller
      */
     public function index()
     {
-        //
         $animals = Animal::all();
-
-        // Retourner les données sous forme de réponse JSON
-        return response()->json($animals, 200);
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function indexSante()
-    {
-        //
-        $sante = Sante::all();
-
-        // Retourner les données sous forme de réponse JSON
-        return response()->json($sante, 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return response()->json("Cool");
+        return response()->json($animals);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function addAnimal(Request $request)
+    public function store(Request $request)
     {
-        // Validation des données
-        $validatedData = $request->validate([
-            'nom' => 'required|string|max:255',
-            'espece' => 'required|string|max:255',
-            'race' => 'required|string|max:255',
-            'sexe' => 'required|string|max:255',
+        $request->validate([
+            'nom' => 'nullable|string|max:20',
+            'espece' => 'nullable|string|max:20',
+            'race' => 'nullable|string|max:20',
+            'sexe' => 'nullable|string|max:10',
             'date_naiss' => 'nullable|date',
             'date_enregist' => 'nullable|date',
             'date_vente' => 'nullable|date',
             'date_dece' => 'nullable|date',
             'age' => 'nullable|integer',
             'poids' => 'nullable|numeric',
-            'status' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:10',
+            'vaccin' => 'nullable|string|max:10',
+            'vermifuge' => 'nullable|boolean',
+            'date_vacc' => 'nullable|date',
+            'date_verm' => 'nullable|date',
+            'maladie' => 'nullable|string|max:10',
+            'blessure' => 'nullable|string|max:10',
+            'date_trait' => 'nullable|date',
+            'etat' => 'nullable|string',
+            'gestation' => 'nullable|boolean',
         ]);
 
-        // Création de l'animal
-        $animal = Animal::create($validatedData);
+        $animal = Animal::create($request->all());
 
-        // Retourner une réponse appropriée incluant l'ID de l'animal
-        return response()->json([
-            'message' => 'Animal enregistré avec succès',
-            'animal_id' => $animal->id,
-            'animal' => $animal
-        ], 201);
+        return response()->json($animal, 201);
     }
-
-    public function animalSante(Request $request)
-    {
-
-        $animalInfo = Sante::create($request->all());
-
-        // Retourner une réponse appropriée
-        return response()->json(['message' => 'Informations de l\'animal enregistrées avec succès', 'animal_info' => $animalInfo], 201);
-    }
-
-    public function updateSante(Request $request, $id)
-    {
-        // Récupération de l'enregistrement existant par son ID
-        $sante = Sante::findOrFail($id);
-
-        // Mise à jour des données de l'enregistrement
-        $sante->update($request->all());
-
-        // Retourner une réponse appropriée incluant l'ID et les nouvelles données de l'enregistrement
-        return response()->json([
-            'message' => 'Enregistrement de santé mis à jour avec succès',
-            'sante_id' => $sante->id_sante,
-            'sante' => $sante
-        ], 200);
-    }
-
-
-    public function showAnimal($id)
-    {
-        // Récupération de l'animal existant par son ID
-        $animal = Animal::findOrFail($id);
-
-        // Retourner une réponse appropriée incluant les données de l'animal
-        return response()->json([
-            'animal_id' => $animal->id_animal,
-            'animal' => $animal
-        ], 200);
-    }
-
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      */
-    public function updateAnimal(Request $request, $id)
+    public function show($id)
     {
-        // Validation des données
-        $validatedData = $request->validate([
-            'nom' => 'sometimes|required|string|max:255',
-            'espece' => 'sometimes|required|string|max:255',
-            'race' => 'sometimes|required|string|max:255',
-            'sexe' => 'sometimes|required|string|max:255',
-            'date_naiss' => 'nullable|date',
-            'date_enregist' => 'nullable|date',
-            'date_vente' => 'nullable|date',
-            'date_dece' => 'nullable|date',
-            'age' => 'nullable|integer',
-            'poids' => 'nullable|numeric',
-            'status' => 'nullable|string|max:255',
-        ]);
-
-        // Récupération de l'animal existant par son ID
         $animal = Animal::findOrFail($id);
-
-        // Mise à jour des données de l'animal
-        $animal->update($validatedData);
-
-        // Retourner une réponse appropriée incluant l'ID de l'animal et les nouvelles données
-        return response()->json([
-            'message' => 'Animal mis à jour avec succès',
-            'animal_id' => $animal->id,
-            'animal' => $animal
-        ], 200);
+        return response()->json($animal);
     }
-
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nom' => 'nullable|string|max:20',
+            'espece' => 'nullable|string|max:20',
+            'race' => 'nullable|string|max:20',
+            'sexe' => 'nullable|string|max:10',
+            'date_naiss' => 'nullable|date',
+            'date_enregist' => 'nullable|date',
+            'date_vente' => 'nullable|date',
+            'date_dece' => 'nullable|date',
+            'age' => 'nullable|integer',
+            'poids' => 'nullable|numeric',
+            'status' => 'nullable|string|max:10',
+            'vaccin' => 'nullable|string|max:10',
+            'vermifuge' => 'nullable|boolean',
+            'date_vacc' => 'nullable|date',
+            'date_verm' => 'nullable|date',
+            'maladie' => 'nullable|string|max:10',
+            'blessure' => 'nullable|string|max:10',
+            'date_trait' => 'nullable|date',
+            'etat' => 'nullable|string',
+            'gestation' => 'nullable|boolean',
+        ]);
+
+        $animal = Animal::findOrFail($id);
+        $animal->update($request->all());
+
+        return response()->json($animal);
     }
 
     /**
@@ -157,16 +97,9 @@ class AnimalController extends Controller
      */
     public function destroy($id)
     {
-        // Récupération de l'animal existant par son ID
         $animal = Animal::findOrFail($id);
-
-        // Suppression de l'animal
         $animal->delete();
 
-        // Retourner une réponse appropriée
-        return response()->json([
-            'message' => 'Animal supprimé avec succès',
-            'animal_id' => $animal->id_animal
-        ], 200);
+        return response()->json(null, 204);
     }
 }
